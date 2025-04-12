@@ -1,0 +1,37 @@
+{
+    "$schema":"http://json-schema.org/draft/2019-09/schema",
+    "$id":"https//swa.net/schemas/user",
+    "type":"object",
+    "properties": {
+        "dataInizio": {
+            "type":"string",
+            "format":"date-time"
+        },
+        "dataFine": {
+            "type": ["string", "null"],
+            "format":"date-time"
+        },
+        "operatoriAssegnati": {
+            "type":"array",
+            "items": {
+                "$ref":"schemas/user"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+        },
+        "livelloSuccesso": {
+            "type": ["integer", "null"],
+            "minimum":1,
+            "maximum":5
+        },
+        "stato": {
+            "type": "string",
+            "enum": ["non_iniziata", "in_corso", "terminata"]
+        },
+        "note": {
+            "type":"string"
+        }
+    },
+    "required": ["richiestaAiuto", "dataInizio", "operatoriAssegnati", "stato"],
+    "additionalProperties":false
+}
