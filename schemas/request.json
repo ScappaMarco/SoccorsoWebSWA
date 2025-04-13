@@ -1,20 +1,3 @@
 {
-    "$schema":"http://json-schema.org/draft/2019-09/schema",
-    "$id":"https//swa.net/schemas/user",
-    "type":"object",
-    "properties": {
-        "id": {
-            "type":"integer",
-            "minimum":1
-        },
-        "richiedente": {
-            "$ref":"/schemas/user"
-        },
-        "missioneSoccorso": {
-            "$ref":"/schemas/mission"
-        },
-        "category": {
-            "type":"string"
-        },
-    }
+    "dafare": "modellare efficentemente la struttura request per una richiesta di soccorso"
 }
