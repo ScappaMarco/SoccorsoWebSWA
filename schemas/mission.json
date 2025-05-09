@@ -7,7 +7,16 @@
             "type":"intteger",
             "minimum": 1
         },
-        "description": {
+        "teamLeader": {
+            "$ref":"/schemas(user"
+        },
+        "team": {
+            "type":"array",
+            "itmes": {
+                "$ref":"/schema/user"
+            }
+        },
+        "objective": {
             "type":"string"
         },
         "position": {
@@ -21,19 +30,9 @@
                 }
             }
         },
-        "reporter": {
-            "$ref":"/schemas/user"
-        },
-        "state": {
+        "startTime": {
             "type":"string",
-            "enum": [
-                "attiva",
-                "in_corso",
-                "conclusa"
-            ]
-        },
-        "mission": {
-            "$ref":"/schemas/mission"
+            "format":"date-time"
         }
     }
 }
