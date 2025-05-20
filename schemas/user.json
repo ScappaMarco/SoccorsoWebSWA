@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
   "$id": "https://swa.net/schemas/user",
   "type": "object",
   "properties": {
@@ -13,8 +13,27 @@
     },
     "username": {
       "type": "string"
+    },
+    "licenses": {
+      "type":"array",
+      "items": {
+        "type":"string"
+      }
+    },
+    "skills": {
+      "type":"array",
+      "items": {
+        "type":"string"
+      }
+    },
+    "userType": {
+      "type":"string",
+      "enum": [
+        "operator",
+        "admin"
+      ]
     }
   },
-  "required": ["email", "username"],
+  "required": ["email", "username", "licenses", "skills", "userType"],
   "additionalProperties": false
 }

@@ -22,12 +22,22 @@
             }
         },
         "reporter": {
-            "$ref":"/schemas/user"
+            "type":"object",
+            "properties": {
+                "name": {
+                    "type":"string"
+                },
+                "email": {
+                    "type":"string",
+                    "format":"email"
+                }
+            }
         },
         "state": {
             "type":"string",
             "enum": [
-                "attiva",
+                "in_attesa",
+                "convalidata",
                 "in_corso",
                 "conclusa"
             ]
@@ -35,5 +45,7 @@
         "mission": {
             "$ref":"/schemas/mission"
         }
-    }
+    },
+    "required": ["position", "reporter", "state", "mission"],
+    "additionalProperties":false
 }

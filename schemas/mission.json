@@ -34,5 +34,7 @@
             "type":"string",
             "format":"date-time"
         }
-    }
+    },
+    "required": ["teamLeader", "team", "objective", "position", "startTime"],
+    "additionalItems":false
 }
