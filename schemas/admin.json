@@ -14,24 +14,11 @@
     "username": {
       "type": "string"
     },
-    "licenses": {
-      "type":"array",
-      "items": {
-        "type":"string"
-      }
-    },
     "skills": {
       "type":"array",
       "items": {
         "type":"string"
       }
-    },
-    "userType": {
-      "type":"string",
-      "enum": [
-        "operator",
-        "admin"
-      ]
     },
     "status": {
         "type":"string",
@@ -41,6 +28,6 @@
         ]
     }
   },
-  "required": ["email", "username", "licenses", "skills", "userType", "status"],
+  "required": ["email", "username", "skills", "status"],
   "additionalProperties": false
 }

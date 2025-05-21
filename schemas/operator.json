@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "https://swa.net/schemas/user",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "username": {
+      "type": "string"
+    },
+    "licenses": {
+      "type":"array",
+      "items": {
+        "type":"string"
+      }
+    },
+    "skills": {
+      "type":"array",
+      "items": {
+        "type":"string"
+      }
+    },
+    "status": {
+        "type":"string",
+        "enum": [
+            "free",
+            "not_free"
+        ]
+    }
+  },
+  "required": ["email", "username", "licenses", "skills", "status"],
+  "additionalProperties": false
+}

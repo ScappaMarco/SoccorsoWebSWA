@@ -16,10 +16,11 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
 **Output**: 201 - CREATED ([BASE]/requests/{id})
 
 ### Operazione 3 - Convalida di una richiesta di soccorso
-**API URL**: 
+**API URL**: _PUT_ [BASE]/requests/{id}/validate
+**OUTPUT**: 204 - NO CONTENT
 
 ### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (attive, in corso, chiuse, ignorate)
-**API URL**: _GET_ [BASE]/requests/{status}?page={numero_pagina}&size={size_pagina} opzione 2
+**API URL**: _GET_ [BASE]/requests/{status}?page={numero_pagina}&size={size_pagina}
 **OUTPUT**: 200
 
     {
@@ -39,9 +40,9 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
                     "email":{email_segnalante}
                 },
                 "status":{status}
-            }
-        ],
-        ...
+            },
+            ...
+        ]
     }
 
 ### Operazione 5 - Lista delle richieste di soccorso chiuse con risultato non totalmente positivo (livello di successo minore di 5)
@@ -53,9 +54,27 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
             "id":{id_missione}
             "teamLeader":{team_leader_missione},
             "team":[{lista_operatori_team}],
-            "obkective":{obiettivo_missione},
+            "objective":{obiettivo_missione},
             "successLevel":{livello_successo_missione},
             "startTime":{data_e_ora_inizio_missione},
             "endTime":{data_e_ora_fine_missione}
-        }
+        },
+        ...
     ]
+
+### Opetazione 6 - Lista degli operatori attualmente liberi
+**API URL**: _GET_ [BASE]/operators/free
+**OUTPUT**: 200
+
+    [
+        {
+            "id":{id_operatore},
+            "email":{email_operatore},
+            "username":{username_operatore},
+            "skills":[{skill_operatore}],
+            "licences":[{patenti_operatore}]
+        },
+        ...
+    ]
+
+### Operazione 7 - 

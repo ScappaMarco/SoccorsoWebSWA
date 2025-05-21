@@ -15,7 +15,7 @@
             "format":"date-time"
         },
         "admin": {
-            "type":"/schemas/user"
+            "type":"/schemas/admin"
         },
         "mission": {
             "$ref":"/schemas/mission"

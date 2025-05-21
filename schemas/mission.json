@@ -8,12 +8,12 @@
             "minimum": 1
         },
         "teamLeader": {
-            "$ref":"/schemas(user"
+            "$ref":"/schemas/operator"
         },
         "team": {
             "type":"array",
             "itmes": {
-                "$ref":"/schema/user"
+                "$ref":"/schema/operator"
             }
         },
         "objective": {
