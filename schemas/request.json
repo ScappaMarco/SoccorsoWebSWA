@@ -33,19 +33,50 @@
                 }
             }
         },
-        "state": {
+        "status": {
             "type":"string",
             "enum": [
-                "in_attesa",
-                "convalidata",
+                "attiva",
                 "in_corso",
-                "conclusa"
+                "chiusa",
+                "ignorata"
             ]
         },
         "mission": {
-            "$ref":"/schemas/mission"
+            "type":"object",
+            "properties": {
+                "id": {
+                "type":"intteger",
+                "minimum": 1
+                },
+                "teamLeader": {
+                    "$ref":"/schemas/user"
+                },
+                "team": {
+                    "type":"array",
+                    "itmes": {
+                        "$ref":"/schema/user"
+                    }
+                },
+                "objective": {
+                    "type":"string"
+                },
+                "successLevel": {
+                    "type":"int",
+                    "minimum":0,
+                    "maximum":5
+                },
+                "startTime": {
+                    "type":"string",
+                    "format":"date-time"
+                },
+                "endTime": {
+                    "type":"string",
+                    "format":"date-time"
+                }
+            }
         }
     },
-    "required": ["position", "reporter", "state", "mission"],
+    "required": ["position", "reporter", "status"],
     "additionalProperties":false
 }

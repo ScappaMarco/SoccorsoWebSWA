@@ -32,8 +32,15 @@
         "operator",
         "admin"
       ]
+    },
+    "status": {
+        "type":"string",
+        "enum": [
+            "free",
+            "not_free"
+        ]
     }
   },
-  "required": ["email", "username", "licenses", "skills", "userType"],
+  "required": ["email", "username", "licenses", "skills", "userType", "status"],
   "additionalProperties": false
 }
