@@ -1,0 +1,13 @@
+{
+    "id":1551,
+    "firstName":"Marco",
+    "lastName":"Scappa",
+    "email":"examplemail@example.com",
+    "username":"mscappa02",
+    "skills": [
+        "skill 1",
+        "skill 2",
+        "skill 3"
+    ],
+    "status":"free"
+}

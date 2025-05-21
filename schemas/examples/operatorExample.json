@@ -1,0 +1,17 @@
+{
+    "id":16776,
+    "firstName":"Marco",
+    "lastName":"Scappa",
+    "email":"exampleMail@example.com",
+    "username":"Mscappa02",
+    "licences": [
+        "A1",
+        "B",
+        "C"
+    ],
+    "skills": [
+        "abilità 1",
+        "abilità 2"
+    ],
+    "status":"not_free"
+}

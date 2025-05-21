@@ -7,6 +7,12 @@
       "type": "integer",
       "minimum": 1
     },
+    "firstName": {
+        "type":"string"
+    },
+    "lastName": {
+        "type":"string"
+    },
     "email": {
       "type": "string",
       "format": "email"
@@ -34,6 +40,6 @@
         ]
     }
   },
-  "required": ["email", "username", "licenses", "skills", "status"],
+  "required": ["firstName", "lastName", "email", "username", "licenses", "skills", "status"],
   "additionalProperties": false
 }

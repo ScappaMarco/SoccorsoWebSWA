@@ -1,0 +1,62 @@
+{
+    "id":239,
+    "descprition":"richiesta di soccorso",
+    "position": {
+        "address":"via vetoio 1, AQ",
+        "coordinates":"42.36626903891304, 13.353144226386664"
+    },
+    "reporter": {
+        "name":"Marco Scappa",
+        "email":"marcoscappa@ex.com"
+    },
+    "status":"chiusa",
+    "mission": {
+        "teamLeader": {
+            "id":"26676",
+            "name":"Mario Rossi",
+            "email":"mariorossi@ex.com",
+            "username":"mrossi",
+            "licences": [
+                "A",
+                "B"
+            ],
+            "skills": [
+                "abilità 1",
+                "abilità 2"
+            ],
+            "status":"not_free"
+        },
+        "team": [
+            {
+                "id":665,
+                "name":"Pippo",
+                "email":"pippo@ex.com",
+                "username":"pippox",
+                "licences": [],
+                "skills": [
+                    "abilità 3"
+                ],
+                "status":"not_free"
+            },
+
+            {
+                "id":"4480",
+                "name":"Lucia Bianchi",
+                "email":"luciabianchi@ex.com",
+                "username":"luciaB",
+                "licences": [
+                    "B"
+                ],
+                "skills": [
+                    "abilità 1",
+                    "abilità 3"
+                ],
+                "status":"not_free"
+            }
+        ],
+        "objective":"salvare il micetto dall'albero",
+        "startTime":"2023-10-22 19:55:04",
+        "endTime":"2023-10-22 19:58:33",
+        "succesLevel":5
+    }
+}
