@@ -21,7 +21,7 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
 
 ### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (attive, in corso, chiuse, ignorate)
 **API URL**: _GET_ [BASE]/requests/{status}?page={numero_pagina}&size={size_pagina}
-**OUTPUT**: 200
+**OUTPUT**: 200 - OK
 
     {
         "page":{numero_pagina},
@@ -46,25 +46,37 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
     }
 
 ### Operazione 5 - Lista delle richieste di soccorso chiuse con risultato non totalmente positivo (livello di successo minore di 5)
-**API URL**: _GET_ [BASE]/requests/mission/closed?max_success_level=4
-**OUTPUT**: 200
+**API URL**: _GET_ [BASE]/requests/closed?max_success_level=4
+**OUTPUT**: 200 - OK
 
     [
         {
-            "id":{id_missione}
-            "teamLeader":{team_leader_missione},
-            "team":[{lista_operatori_team}],
-            "objective":{obiettivo_missione},
-            "successLevel":{livello_successo_missione},
-            "startTime":{data_e_ora_inizio_missione},
-            "endTime":{data_e_ora_fine_missione}
+            "id":{id_richiesta},
+            "descpription":{descrizione_richiesta},
+            "position": {
+                "address":{indirizzo_richiesta},
+                "coordinates":{coordinate_richiesta},
+            },
+            "reporter": {
+                "name":{nome_segnalante},
+                "email":{email_segnalante}
+            },
+            "status":{stato_richiesta},
+            "mission": {
+                "teamLeader":{operatore_caposquadra},
+                "team":[{operatori_team}],
+                "objective":{obiettivo_missione},
+                "startTime":{timestamp_inizio_missione},
+                "endTime":{timestamp_fine_missione},
+                "successLevel":{livello_successo_missione}
+            }
         },
         ...
     ]
 
 ### Opetazione 6 - Lista degli operatori attualmente liberi
 **API URL**: _GET_ [BASE]/operators/free
-**OUTPUT**: 200
+**OUTPUT**: 200 - OK
 
     [
         {
@@ -77,4 +89,17 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
         ...
     ]
 
-### Operazione 7 - 
+### Operazione 7 - Creazione di una missione
+**API URL**: _PATCH_ [BASE]/request/{id}
+**INPUT**:
+
+    {
+        "teamLeader":{operatore_caposquadra},
+        "team": [{operatori_team}],
+        "objective":{obiettivo-missione},
+        "startTime":{timestamp_inizio_missione},
+        "endTime":null,
+        "successLevel":null
+    }
+
+**OUTPUT**: 204 - NO CONTENT

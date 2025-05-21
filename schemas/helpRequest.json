@@ -45,34 +45,30 @@
         "mission": {
             "type":"object",
             "properties": {
-                "id": {
-                "type":"intteger",
-                "minimum": 1
-                },
                 "teamLeader": {
-                    "$ref":"/schemas/user"
+                    "$ref":"/schemas/operator"
                 },
                 "team": {
                     "type":"array",
                     "itmes": {
-                        "$ref":"/schema/user"
+                        "$ref":"/schema/operator"
                     }
                 },
                 "objective": {
                     "type":"string"
                 },
-                "successLevel": {
-                    "type":"int",
-                    "minimum":0,
-                    "maximum":5
-                },
                 "startTime": {
                     "type":"string",
                     "format":"date-time"
-                },
+                }, 
                 "endTime": {
                     "type":"string",
                     "format":"date-time"
+                },
+                "successLevel": {
+                    "type":"integer",
+                    "minimum":0,
+                    "maximum":5
                 }
             }
         }

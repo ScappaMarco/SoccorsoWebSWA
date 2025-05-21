@@ -19,20 +19,18 @@
         "objective": {
             "type":"string"
         },
-        "position": {
-            "type": "object",
-            "properties": {
-                "address": {
-                    "type":"string"
-                },
-                "coordinates": {
-                    "type":"string"
-                }
-            }
-        },
         "startTime": {
             "type":"string",
             "format":"date-time"
+        }, 
+        "endTime": {
+            "type":"string",
+            "format":"date-time"
+        },
+        "successLevel": {
+            "type":"integer",
+            "minimum":0,
+            "maximum":5
         }
     },
     "required": ["teamLeader", "team", "objective", "position", "startTime"],
