@@ -116,7 +116,7 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
     }
 
 **OUTPUT**: 204 - NO CONTENT
-Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in quanto, appena aggiunta una missione, questa non ha ovviamenet una data di fine o un livello di successo.
+Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in quanto, appena aggiunta una missione, questa non ha una data di fine o un livello di successo.
 
 ---
 ### Operazione 8 - Chiusura di una missione in corso
