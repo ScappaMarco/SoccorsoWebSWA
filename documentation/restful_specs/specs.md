@@ -89,8 +89,7 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
     [
         {
             "id":{id_operatore},
-            "firstName":{nome_operatore},
-            "lastName":{cognome_operatore},
+            "name":{nome_operatore},
             "email":{email_operatore},
             "username":{username_operatore},
             "skills":[{abilità_operatore}],
@@ -181,8 +180,7 @@ Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in
 
     {
         "id":{id_operatore},
-        "firstName":{nome_operatore},
-        "lastName":{cognome_operatore},
+        "name":{nome_operatore},
         "email":{email_operatore},
         "username":{username_operatore},
         "licences":[{patenti-operatore}],

@@ -7,10 +7,7 @@
       "type": "integer",
       "minimum": 1
     },
-    "firstName": {
-        "type":"string"
-    },
-    "lastName": {
+    "name": {
         "type":"string"
     },
     "email": {
