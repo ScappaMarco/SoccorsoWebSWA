@@ -1,6 +1,6 @@
 # Funzionalità Realizzate
 Segue la lista delle operazioni implementate.
-URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE]
+URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite **[BASE]**
 
 ---
 # Operazioni
@@ -53,7 +53,7 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
 
 ---
 ### Operazione 5 - Lista delle richieste di soccorso chiuse con risultato non totalmente positivo (livello di successo minore di 5)
-**API URL**: _GET_ [BASE]/requests/closed?max_success_level=4
+**API URL**: _GET_ [BASE]/requests/closed?max_success_level=[0,1,2,3,4]
 **OUTPUT**: 200 - OK
 
     [
@@ -68,7 +68,7 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
                 "name":{nome_segnalante},
                 "email":{email_segnalante}
             },
-            "status":{stato_richiesta},
+            "status":"chiusa",
             "mission": {
                 "teamLeader":{operatore_caposquadra},
                 "team":[{operatori_team}],
@@ -76,11 +76,13 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
                 "startTime":{timestamp_inizio_missione},
                 "endTime":{timestamp_fine_missione},
                 "successLevel":{livello_successo_missione}
+                "endigAdmin": {mission_ending_admin}
             }
         },
         ...
     ]
 
+Nota: in questo output, endTime, successLevel e endingAdmin **non sono sicuramente nulli**, in quanto stiamo prendendo solo richieste con stato "chiusa"
 ---
 ### Opetazione 6 - Lista degli operatori attualmente liberi
 **API URL**: _GET_ [BASE]/operators/free
@@ -93,7 +95,7 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
             "email":{email_operatore},
             "username":{username_operatore},
             "skills":[{abilità_operatore}],
-            "licences":[{patenti_operatore}]
+            "licenses":[{patenti_operatore}]
         },
         ...
     ]
@@ -110,7 +112,8 @@ URL di base: http;//swa.net/soccorsoweb/rest e ci riferimo ad essa tramite [BASE
             "objective":{obiettivo-missione},
             "startTime":{timestamp_inizio_missione},
             "endTime":null,
-            "successLevel":null
+            "successLevel":null,
+            "endingAdmin":null
         }
     }
 
@@ -126,7 +129,8 @@ Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in
         "status":"chiusa",
         "mission": {
             "successLevel":{livello_di_successo},
-            "endTime":{timestamp_chiusura_missione}
+            "endTime":{timestamp_chiusura_missione},
+            "endingAdmin": {mission_ending_admin}
         }
     }
 
@@ -150,9 +154,12 @@ Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in
             "objective":{obiettivo_missione},
             "startTime":{timestamp_inizio_missione},
             "endTime":{timestamp_fine_missione},
-            "successLevel":{livello_successo_missione}
+            "successLevel":{livello_successo_missione},
+            "endingAdmin":{mission_ending_admin}
         }
     }
+
+Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere nulli**, in quanto la missione potrebbe non essere conclusa
 
 ---
 ### Operazione 11 - Dettagli di una richiesta di soccorso
@@ -211,10 +218,13 @@ Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in
                 "objective":{obiettivo_missione},
                 "startTime":{timestamp_inizio_missione},
                 "endTime":{timestamp_fine_missione},
-                "successLevel":{livello_successo_missione}
+                "successLevel":{livello_successo_missione},
+                "endingAdmin":{mission_ending_admin}
             }
         },
         ...
     ]
+
+Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere nulli**, in quanto la missione potrebbe non essere conclusa
 
 ---

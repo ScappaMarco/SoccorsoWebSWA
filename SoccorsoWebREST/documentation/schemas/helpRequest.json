@@ -69,7 +69,10 @@
                     "type":"integer",
                     "minimum":0,
                     "maximum":5
-                }
+                },
+                "endingAdmin": {
+                    "$ref": "/schemas/admin"
+                }   
             }
         }
     },
