@@ -1,0 +1,169 @@
+openapi: 3.0.4
+info:
+  title: SoccorsoWeb
+  version: "0.1"
+externalDocs:
+  url: https://github.com/ScappaMarco/SoccorsoWebSWA.git
+  description: GitHub repository for the project
+servers:
+  - url: http://localhost:8080/webmarket/rest
+tags:
+  
+paths:
+  
+components:
+  securitySchemas:
+  schemas:
+    ID:
+      type: integer
+      minimum: 1
+    email:
+      type: string
+      format: email
+    date-time:
+      type: string
+      format: date-time
+    success-level:
+      type: integer
+      minimum: 0
+      maximum: 5
+    operatorStatus:
+      type: string
+      enum:
+        - "free"
+        - "not_free"
+    requestStatus:
+      type: string
+      enum:
+        - "attiva"
+        - "in_corso"
+        - "chiusa"
+        - "ignorata"
+    adminStatus:
+      type: string
+      enum:
+        - "active"
+        - "inactive"
+    position:
+      type: object
+      properties:
+        address:
+          type: string
+        coordinates:
+          type: string
+      required:
+        - address
+        - coordinates
+      additionalProperties: false
+    reporter:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          $ref: "#/components/schemas/email"
+      required:
+        - name
+        - email
+      additionalProperties: false
+    operator:
+      type: object
+      properties:
+        ID:
+          $ref: "#/components/schemas/ID"
+        name:
+          type: string
+        email:
+          $ref: "#/components/schemas/email"
+        username:
+          type: string
+        licenses:
+          type: array
+          items:
+            type: string
+        skills:
+          type: array
+          items:
+            type: string
+        status:
+          $ref: "#/components/schemas/operatorStatus"
+      required:
+        - ID
+        - name
+        - email
+        - username
+        - licenses
+        - skills
+        - status
+      additionalProperties: false
+    admin:
+      type: object
+      properties:
+        ID:
+          $ref: "#/components/schemas/ID"
+        name:
+          type: string
+        email:
+          $ref: "#/components/schemas/email"
+        username:
+          type: string
+        skills:
+          type: array
+          items:
+            type: string
+        status:
+          $ref: "#/components/schemas/adminStatus"
+      required:
+        - ID
+        - name
+        - email
+        - username
+        - skills
+        - status
+      additionalProperties: false
+    mission:
+      type: object
+      properties:
+        team:
+          type: array
+          items:
+            $ref: "#/components/schemas/operator"
+        teamLeader:
+          $ref: "#/components/schemas/operator"
+        objective:
+          type: string
+        startTime:
+          $ref: "#/components/schemas/date-time"
+        endTime:
+          $ref: "#/components/schemas/date-time"
+        successLevel:
+          $ref: "#/components/schemas/success-level"
+        endingAdmin:
+          $ref: "#/components/schemas/admin"
+      required:
+        - team
+        - teamLeader
+        - startTime
+      additionalProperties: false
+    helpRequest:
+      type: object
+      properties:
+        ID:
+          $ref: "#/components/schemas/ID"
+        description:
+          type: string
+        position:
+          $ref: "#/components/schemas/position"
+        reporter:
+          $ref: "#/components/schemas/reporter"
+        status:
+          $ref: "#/components/schemas/requestStatus"
+        mission:
+          $ref: "#/components/schemas/mission"
+      required:
+        - ID
+        - description
+        - position
+        - reporter
+        - status
+      additionalProperties: false

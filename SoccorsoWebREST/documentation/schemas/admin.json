@@ -7,10 +7,7 @@
       "type": "integer",
       "minimum": 1
     },
-    "firstName": {
-        "type":"string"
-    },
-    "lastName": {
+    "name": {
         "type":"string"
     },
     "email": {
@@ -34,6 +31,6 @@
         ]
     }
   },
-  "required": ["firstName", "lastName", "email", "username", "skills", "status"],
+  "required": ["name", "email", "username", "skills", "status"],
   "additionalProperties": false
 }
