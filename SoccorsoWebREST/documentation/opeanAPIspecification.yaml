@@ -1,12 +1,12 @@
 openapi: 3.0.4
 info:
-  title: SoccorsoWeb
+  title: SoccorsoWeb Rest API
   version: "0.1"
 externalDocs:
   url: https://github.com/ScappaMarco/SoccorsoWebSWA.git
   description: GitHub repository for the project
 servers:
-  - url: http://localhost:8080/webmarket/rest
+  - url: http://localhost:8080/soccorsoweb/rest
 tags:
   
 paths:
@@ -55,7 +55,7 @@ components:
         - address
         - coordinates
       additionalProperties: false
-    reporter:
+    user:
       type: object
       properties:
         name:
@@ -155,7 +155,7 @@ components:
         position:
           $ref: "#/components/schemas/position"
         reporter:
-          $ref: "#/components/schemas/reporter"
+          $ref: "#/components/schemas/user"
         status:
           $ref: "#/components/schemas/requestStatus"
         mission:
@@ -166,4 +166,149 @@ components:
         - position
         - reporter
         - status
-      additionalProperties: false
+      additionalProperties: false    
+  responses:
+    SuccessfullInsert:
+      description: Elemen created
+      headers:
+        location:
+          schema:
+            type: string
+            format: uri
+      content:
+        application/json:
+          schema:
+            type: string
+            format: uri
+    NoContent:
+      description: No content
+    GeneralError:
+      description: General error
+    UnauthorizedError:
+      description: Missing or invalid bearer token
+    NotFound:
+      description: Element not found
+      content:
+        text/plain:
+          schema:
+            type: string
+  examples:
+    operator:
+      summary: Esempio operatore
+      value:
+        ID: 223
+        name: "paolo rossi"
+        email: "paolo.rossi@ex.com"
+        username: "paolorossi98"
+        licenses:
+          - "A"
+          - "B"
+          - "C1"
+        skills:
+          - "skill 1"
+          - "skill 2"
+        status: "free"
+    admin:
+      summary: Esempio amministratore
+      value:
+        ID: 87
+        name: "pippo binchi"
+        email: "pippo.bianchi@ex.com"
+        username: "pippobianchi88"
+        skills:
+          - "skill 1"
+        status: "inactive"
+    user:
+      summary: Esempio utente
+      value:
+        name: "mario verdi"
+        email: "mario.verdi@ex.com"
+    mission:
+      summary: Esempio missione
+      value:
+        team:
+          - op1:
+              ID: 56
+              name: "sara"
+              email: "sara@ex.com"
+              username: "sara76"
+              licenses:
+                - "B"
+              skills:
+                - "skill 1"
+              status: "not_free"
+          - op2:
+              ID: 338
+              name: "mirko valenti"
+              email: "mirko.valenti@ex.com"
+              username: "mirkovalenti99"
+              licenses:
+                - "A1"
+                - "B"
+              skills:
+                - "skill 1"
+                - "skill 2"
+              status: "not_free"
+        teamLeader:
+          ID: 56
+          name: "sara"
+          email: "sara@ex.com"
+          username: "sara76"
+          licenses:
+            - "B"
+          skills:
+            - "skill 1"
+          status: "not_free"
+        objective: "Salvare il micetto dall'albero"
+        startTime: "2025-05-21 19:15:00"
+        endTime: null
+        successLevel: null
+        endingAdmin: null
+    helpRequest:
+      summary: Esempio richiesta di soccorso
+      value:
+        ID: 3
+        description: "Casa rapinata"
+        position:
+          address: "Via Vetoio 1"
+          coordinates: "787N 667E"
+        status: "in_corso"
+        mission:
+          team:
+          - op1:
+              ID: 56
+              name: "sara"
+              email: "sara@ex.com"
+              username: "sara76"
+              licenses:
+                - "B"
+              skills:
+                - "skill 1"
+              status: "not_free"
+          - op2:
+              ID: 338
+              name: "mirko valenti"
+              email: "mirko.valenti@ex.com"
+              username: "mirkovalenti99"
+              licenses:
+                - "A1"
+                - "B"
+              skills:
+                - "skill 1"
+                - "skill 2"
+              status: "not_free"
+        teamLeader:
+          ID: 56
+          name: "sara"
+          email: "sara@ex.com"
+          username: "sara76"
+          licenses:
+            - "B"
+          skills:
+            - "skill 1"
+          status: "not_free"
+        objective: "Salvare il micetto dall'albero"
+        startTime: "2025-05-21 19:15:00"
+        endTime: null
+        successLevel: null
+        endingAdmin: null
