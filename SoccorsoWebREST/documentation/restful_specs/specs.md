@@ -15,7 +15,7 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 
 ---
 ### Operazione 2 - Inserimento di una richiesta di soccorso
-**API URL**: _POST_ [BASE]/request
+**API URL**: _POST_ [BASE]/requests
 **Input**: {request}
 **Output**: 201 - CREATED ([BASE]/requests/{id})
 
@@ -83,9 +83,10 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
     ]
 
 Nota: in questo output, endTime, successLevel e endingAdmin **non sono sicuramente nulli**, in quanto stiamo prendendo solo richieste con stato "chiusa"
+
 ---
-### Opetazione 6 - Lista degli operatori attualmente liberi
-**API URL**: _GET_ [BASE]/operators/free
+### Opetazione 6 - Lista degli operatori filtrati per stato 
+**API URL**: _GET_ [BASE]/operators/{status}
 **OUTPUT**: 200 - OK
 
     [
@@ -94,15 +95,18 @@ Nota: in questo output, endTime, successLevel e endingAdmin **non sono sicuramen
             "name":{nome_operatore},
             "email":{email_operatore},
             "username":{username_operatore},
+            "status":{status}
             "skills":[{abilità_operatore}],
             "licenses":[{patenti_operatore}]
         },
         ...
     ]
 
+Nota: l'operazione chiedeva di prendere la lista degli operatori **liberi**, ma in questo modo abbiamo un'operazione parametrica, con la variabile che può essere "free", oppure "not free"
+
 ---
 ### Operazione 7 - Creazione di una missione
-**API URL**: _PATCH_ [BASE]/request/{id}
+**API URL**: _PATCH_ [BASE]/requests/{id}
 **INPUT**:
 
     {
@@ -197,7 +201,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 13 - Lista delle missioni in cui un operatore è stato coinvolto
-**API URL**: _GET_ [BASE]/operators/{id}/missions
+**API URL**: _GET_ [BASE]/operators/{id}/missionsAccomplished
 **OUTPUT**: 200
 
     [
@@ -225,6 +229,4 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
         ...
     ]
 
-Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere nulli**, in quanto la missione potrebbe non essere conclusa
-
----
+Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere nulli**, in quanto l'operazione mostra in output anche le missioni non concluse

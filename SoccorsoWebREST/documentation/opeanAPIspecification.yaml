@@ -8,11 +8,46 @@ externalDocs:
 servers:
   - url: http://localhost:8080/soccorsoweb/rest
 tags:
-  
+  - name: Authentication
+    description: Authentication operations
 paths:
-  
+  /auth/login:
+    post:
+      operationId: login
+      description: login
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: string
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /auth/logout:
+    delete:
+      operationId: logout
+      description: logout
+      tags:
+        - Authentication
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
 components:
-  securitySchemas:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: internalToken
   schemas:
     ID:
       type: integer
@@ -23,7 +58,7 @@ components:
     date-time:
       type: string
       format: date-time
-    success-level:
+    successLevel:
       type: integer
       minimum: 0
       maximum: 5
@@ -137,7 +172,7 @@ components:
         endTime:
           $ref: "#/components/schemas/date-time"
         successLevel:
-          $ref: "#/components/schemas/success-level"
+          $ref: "#/components/schemas/successLevel"
         endingAdmin:
           $ref: "#/components/schemas/admin"
       required:
@@ -166,7 +201,38 @@ components:
         - position
         - reporter
         - status
-      additionalProperties: false    
+      additionalProperties: false
+  parameters:
+    requestId:
+      name: requestId
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/ID"
+    operatorId:
+      name: operatorId
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/ID"
+    successLevel:
+      name: successLevel
+      in: query
+      required: true
+      schema:
+        $ref: "#/components/schemas/successLevel"
+    requestStatus:
+      name: requestStatus
+      in: query
+      required: true
+      schema:
+        $ref: "#/components/schemas/requestStatus"
+    operatorStatus:
+      name: operatorStatus
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/operatorStatus"
   responses:
     SuccessfullInsert:
       description: Elemen created
