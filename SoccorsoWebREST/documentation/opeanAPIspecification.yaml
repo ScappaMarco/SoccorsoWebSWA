@@ -205,7 +205,54 @@ paths:
           $ref: "#/components/responses/GeneralError"
   /requests/{requestId}/mission:
     patch:
-      
+      operationId: addMission
+      description: The action "PATCH" on the endpoint "/requests/{requestId}/mission" has the effect of modifing the object request adding the field "mission"
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/requestId"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/mission"
+            examples:
+              example:
+                $ref: "#/components/examples/mission"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+    get:
+      operationId: missionDetails
+      description: The action "GET" on the endpoint "/requests/{requestId}/mission" has the effect of returning the details of the mission associated to the request with the specified ID
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/requestId"
+      responses:
+        "200":
+          description: Mission details of the specified request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/helpRequestStatusMission"
+              examples:
+                example:
+                  $ref: "#/components/examples/helpRequestMissionDetails"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
 components:
   securitySchemes:
     bearerAuth:
@@ -344,6 +391,17 @@ components:
         - team
         - teamLeader
         - startTime
+      additionalProperties: false
+    helpRequestStatusMission:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/requestStatus"
+        mission:
+          $ref: "#/components/schemas/mission"
+      required:
+        - status
+        - mission
       additionalProperties: false
     helpRequest:
       type: object
@@ -675,3 +733,46 @@ components:
             - "B"
           skills:
             - "skill 1"
+    helpRequestMissionDetails:
+      summary: Esempio di stato richiesta + dettagli missione associata
+      value:
+        status: "in_corso"
+        missione:
+          team:
+          - op1:
+              ID: 56
+              name: "sara"
+              email: "sara@ex.com"
+              username: "sara76"
+              licenses:
+                - "B"
+              skills:
+                - "skill 1"
+              status: "not_free"
+          - op2:
+              ID: 338
+              name: "mirko valenti"
+              email: "mirko.valenti@ex.com"
+              username: "mirkovalenti99"
+              licenses:
+                - "A1"
+                - "B"
+              skills:
+                - "skill 1"
+                - "skill 2"
+              status: "not_free"
+          teamLeader:
+            ID: 56
+            name: "sara"
+            email: "sara@ex.com"
+            username: "sara76"
+            licenses:
+              - "B"
+            skills:
+              - "skill 1"
+            status: "not_free"
+          objective: "Salvare il micetto dall'albero"
+          startTime: "2025-05-21 19:15:00"
+          endTime: null
+          successLevel: null
+          endingAdmin: null
