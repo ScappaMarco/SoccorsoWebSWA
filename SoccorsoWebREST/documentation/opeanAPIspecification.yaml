@@ -10,6 +10,10 @@ servers:
 tags:
   - name: Authentication
     description: Authentication operations
+  - name: Requests
+    description: Requests operations
+  - name: Operators
+    description: Operators operation
 paths:
   /auth/login:
     post:
@@ -42,6 +46,166 @@ paths:
           $ref: "#/components/responses/GeneralError"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
+  /requests:
+    post:
+      operationId: addRequest
+      description: The operations "POST" on the endpoint "/requests" has the effetc of adding a new request. Is then returned the location of the just added request.
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/helpRequest"
+            examples:
+              example:
+                $ref: "#/components/examples/helpRequest"
+      responses:
+        "201":
+          description: Request added
+          headers:
+            Location:
+              description: URL of the just added request
+              schema:
+                type: string
+                format: uri
+                example: requests/334
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /requests/{requestId}:
+    get:
+      operationId: getRequest
+      description: The operation "GET" on the endpoint "/requests/{id}" has the effetc of getting the request with the specified ID
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/requestId"
+      responses:
+        "200":
+          description: Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/helpRequest"
+              examples:
+                example:
+                  $ref: "#/components/examples/helpRequest"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+    delete:
+      operationId: deleteRequest
+      description: The operation "DELETE" on the endpoint "/requests/{id}" has the effect of deleting the request with the specified ID
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/requestId"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /requests/{requestId}/validate:
+    patch:
+      operationId: validateRequest
+      description: The operation "PATCH" on the endpoint "/requests/{id}/validate" has the effetc of validating the specified help request (the status of the specified hel request is set to "active")
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/requestId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/requestStatus"
+            examples:
+              example:
+                summary: Status setted on "active"
+                value:
+                  status: attiva
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /requests/closed:
+    get:
+      operationId: getClosedRequestsWithLowSuccess
+      description: The operation "GET" on the endpoint "request/closed/successLevel=[0,1,2,3,4]" has effect of returning alla the help requests closed and with level of success lower then 5
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/successLevel"
+      responses:
+        "200":
+          description: List of the help request ended and with a level of success lower then 5
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/helpRequest"
+              examples:
+                example:
+                  $ref: "#/components/examples/helpRequestArray"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /operators/{operatorStatus}:
+    get:
+      operationId: getOperatorPerStatus
+      description: The operation "GET" on the endpoint "operators/{status}" has the effect of returning all the operators in the specified status (either "free" or "not free")
+      tags:
+        - Operators
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/operatorStatus"
+      responses:
+        "200":
+          description: List of the operators in the specified status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/operator"
+              examples:
+                example:
+                  $ref: "#/components/examples/operatorsArray"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /requests/{requestId}/mission:
+    patch:
+      
 components:
   securitySchemes:
     bearerAuth:
@@ -70,6 +234,7 @@ components:
     requestStatus:
       type: string
       enum:
+        - "in_attesa"
         - "attiva"
         - "in_corso"
         - "chiusa"
@@ -375,6 +540,138 @@ components:
           status: "not_free"
         objective: "Salvare il micetto dall'albero"
         startTime: "2025-05-21 19:15:00"
-        endTime: null
-        successLevel: null
-        endingAdmin: null
+        endTime: "2025-07-11 17:16:00"
+        successLevel: 4
+        endingAdmin:
+          ID: 33
+          name: "pippo"
+          email: "pippo@exadmin.com"
+          username: "pippo69"
+          skills: null
+          status: "active"
+    helpRequestArray:
+      summary: Esempio lista richiesta di soccorso
+      value:
+        - ID: 3
+          description: "Casa rapinata"
+          position:
+            address: "Via Vetoio 1"
+            coordinates: "787N 667E"
+          status: "in_corso"
+          mission:
+            team:
+            - op1:
+                ID: 56
+                name: "sara"
+                email: "sara@ex.com"
+                username: "sara76"
+                licenses:
+                  - "B"
+                skills:
+                  - "skill 1"
+                status: "not_free"
+            - op2:
+                ID: 338
+                name: "mirko valenti"
+                email: "mirko.valenti@ex.com"
+                username: "mirkovalenti99"
+                licenses:
+                  - "A1"
+                  - "B"
+                skills:
+                  - "skill 1"
+                  - "skill 2"
+                status: "not_free"
+          teamLeader:
+            ID: 56
+            name: "sara"
+            email: "sara@ex.com"
+            username: "sara76"
+            licenses:
+              - "B"
+            skills:
+              - "skill 1"
+            status: "not_free"
+          objective: "Salvare il micetto dall'albero"
+          startTime: "2025-05-21 19:15:00"
+          endTime: "2025-07-11 17:16:00"
+          successLevel: 4
+          endingAdmin:
+            ID: 33
+            name: "pippo"
+            email: "pippo@exadmin.com"
+            username: "pippo69"
+            skills: null
+            status: "active"
+        - ID: 3
+          description: "Casa rapinata"
+          position:
+            address: "Via Vetoio 1"
+            coordinates: "787N 667E"
+          status: "in_corso"
+          mission:
+            team:
+            - op1:
+                ID: 56
+                name: "sara"
+                email: "sara@ex.com"
+                username: "sara76"
+                licenses:
+                  - "B"
+                skills:
+                  - "skill 1"
+                status: "not_free"
+            - op2:
+                ID: 338
+                name: "mirko valenti"
+                email: "mirko.valenti@ex.com"
+                username: "mirkovalenti99"
+                licenses:
+                  - "A1"
+                  - "B"
+                skills:
+                  - "skill 1"
+                  - "skill 2"
+                status: "not_free"
+          teamLeader:
+            ID: 56
+            name: "sara"
+            email: "sara@ex.com"
+            username: "sara76"
+            licenses:
+              - "B"
+            skills:
+              - "skill 1"
+            status: "not_free"
+          objective: "Salvare il micetto dall'albero"
+          startTime: "2025-05-21 19:15:00"
+          endTime: "2025-07-11 17:16:00"
+          successLevel: 4
+          endingAdmin:
+            ID: 33
+            name: "pippo"
+            email: "pippo@exadmin.com"
+            username: "pippo69"
+            skills: null
+            status: "active"
+    operatorsArray:
+      summary: Esempio di lista di operatori
+      value:
+        - ID: 55445
+          name: "Giuseppe Della Penna"
+          email: "giuseppe.della.penna@ex.com"
+          username: "peppedipenna77"
+          licenses:
+            - "A"
+            - "B"
+          skills:
+            - "skill 1"
+        - ID: 445
+          name: "Giuseppe Della Penna"
+          email: "giuseppe.della.penna@ex.com"
+          username: "peppedipenna77"
+          licenses:
+            - "A"
+            - "B"
+          skills:
+            - "skill 1"

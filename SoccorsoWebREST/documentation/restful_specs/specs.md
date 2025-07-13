@@ -21,7 +21,13 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 
 ---
 ### Operazione 3 - Convalida di una richiesta di soccorso
-**API URL**: _PUT_ [BASE]/requests/{id}/validate
+**API URL**: _PATCH_ [BASE]/requests/{id}/validate
+**INPUT**:
+
+    {
+        "status":"attiva"
+    }
+
 **OUTPUT**: 204 - NO CONTENT
 
 ---
@@ -106,7 +112,7 @@ Nota: l'operazione chiedeva di prendere la lista degli operatori **liberi**, ma 
 
 ---
 ### Operazione 7 - Creazione di una missione
-**API URL**: _PATCH_ [BASE]/requests/{id}
+**API URL**: _PATCH_ [BASE]/requests/{id}/mission
 **INPUT**:
 
     {
@@ -167,7 +173,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 11 - Dettagli di una richiesta di soccorso
-**API URL**: _GET_ [BASE]/requests/{id}/requestDetails
+**API URL**: _GET_ [BASE]/requests/{id}
 **OUTPUT**: 200
 
     {
@@ -186,7 +192,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 12 - Dettagli di un operatore
-**API URL**: _GET_ [BASE]/operators/{id}/details
+**API URL**: _GET_ [BASE]/operators/{id}
 **OUTPUT**: 200
 
     {
