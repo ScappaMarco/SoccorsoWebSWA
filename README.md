@@ -31,3 +31,6 @@ Si implementi un semplice client di test (preferibilmente Javascript), che inter
 In particolare, il client dovrà permettere di eseguire opportunamente le operazioni 1, 2, 4 e 6.
 
 Nota bene: il test client general-purpose inserito all'interno degli esempi del corso non è valido in quest'ambito, in quanto non richiede alcuna programmazione per poter essere adattato ad altri servizi!
+
+## Documentazione
+La documentazione OpenAPI è disponibile [qui](https://github.com/ScappaMarco/SoccorsoWebSWA/blob/main/SoccorsoWebREST/documentation/opeanAPIspecification.yaml).
