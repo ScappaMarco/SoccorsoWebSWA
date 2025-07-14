@@ -36,6 +36,7 @@
         "status": {
             "type":"string",
             "enum": [
+                "in_attesa",
                 "attiva",
                 "in_corso",
                 "chiusa",
