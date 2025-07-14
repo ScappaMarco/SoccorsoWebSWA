@@ -34,13 +34,13 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 
 ---
 ### Operazione 2 - Inserimento di una richiesta di soccorso
-**API URL**: _POST_ [BASE]/requests
-**Input**: {request}
+**API URL**: _POST_ [BASE]/requests<br>
+**Input**: {request}<br>
 **Output**: 201 - CREATED ([BASE]/requests/{idRichiestaAggiunta})
 
 ---
 ### Operazione 3 - Convalida di una richiesta di soccorso
-**API URL**: _PATCH_ [BASE]/requests/{id}/validate
+**API URL**: _PATCH_ [BASE]/requests/{id}/validate<br>
 **INPUT**:
 
     {
@@ -51,7 +51,7 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 
 ---
 ### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (in attesa, attive, in corso, chiuse, ignorate)
-**API URL**: _GET_ [BASE]/requests/{status}?page={numero_pagina}&size={size_pagina}
+**API URL**: _GET_ [BASE]/requests/{status}?page={numero_pagina}&size={size_pagina}<br>
 **OUTPUT**: 200 - OK
 
     {
@@ -78,7 +78,7 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 
 ---
 ### Operazione 5 - Lista delle richieste di soccorso chiuse con risultato non totalmente positivo (livello di successo minore di 5)
-**API URL**: _GET_ [BASE]/requests/closed?max_success_level=[0,1,2,3,4]
+**API URL**: _GET_ [BASE]/requests/closed?max_success_level=[0,1,2,3,4]<br>
 **OUTPUT**: 200 - OK
 
     [
@@ -111,7 +111,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **non sono sicuramen
 
 ---
 ### Opetazione 6 - Lista degli operatori filtrati per stato 
-**API URL**: _GET_ [BASE]/operators/{status}
+**API URL**: _GET_ [BASE]/operators/{status}<br>
 **OUTPUT**: 200 - OK
 
     [
@@ -131,7 +131,7 @@ Nota: l'operazione chiedeva di prendere la lista degli operatori **liberi**, ma 
 
 ---
 ### Operazione 7 - Creazione di una missione
-**API URL**: _PATCH_ [BASE]/requests/{id}/mission
+**API URL**: _PATCH_ [BASE]/requests/{id}/mission<br>
 **INPUT**:
 
     {
@@ -146,12 +146,12 @@ Nota: l'operazione chiedeva di prendere la lista degli operatori **liberi**, ma 
         }
     }
 
-**OUTPUT**: 204 - NO CONTENT
+**OUTPUT**: 204 - NO CONTENT<br>
 Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in quanto, appena aggiunta una missione, questa non ha una data di fine o un livello di successo.
 
 ---
 ### Operazione 8 - Chiusura di una missione in corso
-**API URL**: _PATCH_ [BASE]/requests/{id}/close
+**API URL**: _PATCH_ [BASE]/requests/{id}/close<br>
 **INPUT**: 
 
     {
@@ -165,12 +165,12 @@ Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in
 
 ---
 ### Operazione 9 - Annullamento di una richiesta du soccorso (da parte dell'amministratore)
-**API URL**: _DELETE_ [BASE]/requests/{id}
+**API URL**: _DELETE_ [BASE]/requests/{id}<br>
 **OUTPUT**: 204 - NO CONTENT
 
 ---
 ### Operazione 10 - Dettagli di una missione
-**API URL**: _GET_ [BASE]/requests/{id}/missionDetails
+**API URL**: _GET_ [BASE]/requests/{id}/missionDetails<br>
 **OUTPUT**: 200
 
     {
@@ -190,7 +190,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 11 - Dettagli di una richiesta di soccorso
-**API URL**: _GET_ [BASE]/requests/{id}
+**API URL**: _GET_ [BASE]/requests/{id}<br>
 **OUTPUT**: 200
 
     {
@@ -209,7 +209,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 12 - Dettagli di un operatore
-**API URL**: _GET_ [BASE]/operators/{id}
+**API URL**: _GET_ [BASE]/operators/{id}<br>
 **OUTPUT**: 200
 
     {
@@ -224,7 +224,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 13 - Lista delle missioni in cui un operatore è stato coinvolto
-**API URL**: _GET_ [BASE]/operators/{id}/missions
+**API URL**: _GET_ [BASE]/operators/{id}/missions<br>
 **OUTPUT**: 200
 
     [
@@ -256,7 +256,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 14 (Operazione aggiuntiva) - Aggiunta di un operatore
-**API URL**: _POST_ [BASE]/operators
+**API URL**: _POST_ [BASE]/operators<br>
 **INPUT**:
 
      {
