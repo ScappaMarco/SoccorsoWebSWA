@@ -24,12 +24,12 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 ---
 # Specifica operazioni
 ### Operazione 1.1 - Login con username e password
-**API URL**: _POST_ [BASE]/auth/login
+**API URL**: _POST_ [BASE]/auth/login<br>
 **Output**: 204 - NO CONTENT
 
 ---
 ### Operazione 1.2 - Logout
-**API URL**: _DELETE_ [BASE]/auth/logout
+**API URL**: _DELETE_ [BASE]/auth/logout<br>
 **Output**: 204 - NO CONTENT
 
 ---
