@@ -1,6 +1,11 @@
 openapi: 3.0.4
 info:
   title: SoccorsoWeb Rest API
+  description: This is the API definition for the SoccorsoWeb project
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: "0.1"
 externalDocs:
   url: https://github.com/ScappaMarco/SoccorsoWebSWA.git
@@ -18,7 +23,7 @@ paths:
   /auth/login:
     post:
       operationId: login
-      description: login
+      description: This operation serve as Login
       tags:
         - Authentication
       requestBody:
@@ -34,7 +39,7 @@ paths:
   /auth/logout:
     delete:
       operationId: logout
-      description: logout
+      description: This operation serve as Logout
       tags:
         - Authentication
       security:
@@ -214,6 +219,7 @@ paths:
       parameters:
         - $ref: "#/components/parameters/requestId"
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -249,6 +255,119 @@ paths:
               examples:
                 example:
                   $ref: "#/components/examples/helpRequestMissionDetails"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /requests/{requestId}/close:
+    patch:
+      operationId: closeMission
+      description: The action "PATCH" on the endpoint "/request/{id}/close" has the effect of closing the mission associated with the specified request (closing = setting some attributes to their "closing" value)
+      tags:
+        - Requests
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/requestId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/endedMission"
+            examples:
+              example:
+                $ref: "#/components/examples/endedMission"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /operators/{operatorId}:
+    get:
+      operationId: operatorDetails
+      description: The action "GET" on the endpoint "operators/{id}" has the effect of returning the details of the specified operator
+      tags:
+        - Operators
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/operatorId"
+      responses:
+        "200":
+          description: Details of the specified operator
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/operator"
+              examples:
+                example:
+                  $ref: "#/components/examples/operator"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+            $ref: "#/components/responses/GeneralError"
+  /operators/{operatorId}/missions:
+    get:
+      operationId: operatorMissions
+      description: The action "GET" on the endpoint "/operators/{id}/missions" has the effect of returning all missions in which the specified operator participated (ongoing and closed)
+      tags:
+        - Operators
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/operatorId"
+      responses:
+        "200":
+          description: List of missions with the specified operator
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/helpRequest"
+              examples:
+                example:
+                  $ref: "#/components/examples/helpRequestArray"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
+  /operators:
+    post:
+      operationId: addOperator
+      description: The action "POST" to the endpoint "/operators" has the effect of adding a new operator (the operation returns the location to get the new operator; /operator/{newOperatorId})
+      tags:
+        - Operators
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/helpRequest"
+            examples:
+              example:
+                $ref: "#/components/examples/helpRequest"
+      responses:
+        "201":
+          description: Operator added
+          headers:
+            Location:
+              description: URL of the just added operator
+              schema:
+                type: string
+                format: uri
+                example: operator/334
         "401":
           $ref: "#/components/responses/UnauthorizedError"
         "500":
@@ -402,6 +521,23 @@ components:
       required:
         - status
         - mission
+      additionalProperties: false
+    endedMission:
+      type: object
+      properties:
+        status:
+          $ref: "#/components/schemas/requestStatus"
+        ednTime:
+          $ref: "#/components/schemas/date-time"
+        successLevel:
+          $ref: "#/components/schemas/successLevel"
+        endingAdmin:
+          $ref: "#/components/schemas/admin"
+      required:
+        - status
+        - endtime
+        - successLevel
+        - endingAdmin
       additionalProperties: false
     helpRequest:
       type: object
@@ -776,3 +912,16 @@ components:
           endTime: null
           successLevel: null
           endingAdmin: null
+    endedMission:
+      summary: Esempio attribui chiusura missione
+      value:
+        status: "chiusa"
+        endTime: "2025-07-13 12:55:00"
+        successLevel: 3
+        endingAdmin:
+          ID: 33
+          name: "pippo"
+          email: "pippo@exadmin.com"
+          username: "pippo69"
+          skills: null
+          status: "active"

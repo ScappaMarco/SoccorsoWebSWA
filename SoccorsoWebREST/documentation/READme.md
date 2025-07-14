@@ -1,9 +1,28 @@
-# Funzionalità Realizzate
+# SoccorsoWeb - Sviluppo Web Avanzato
+---
+## Operazioni da realizzare
 Segue la lista delle operazioni implementate.
 URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite **[BASE]**
 
+## Riepilogo operazioni
+- #### Operazione 1.1 - Login con username e password
+- #### Operazione 1.2 - Logout
+- #### Operazione 2 - Inserimento di una richiesta di soccorso
+- #### Operazione 3 - Convalida di una richiesta di soccorso
+- #### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (attive, in corso, chiuse, ignorate)
+- #### Operazione 5 - Lista delle richieste di soccorso chiuse con risultato non totalmente positivo (livello di successo minore di 5)
+- #### Opetazione 6 - Lista degli operatori filtrati per stato 
+- #### Operazione 7 - Creazione di una missione
+- #### Operazione 8 - Chiusura di una missione in corso
+- #### Operazione 9 - Annullamento di una richiesta du soccorso (da parte dell'amministratore)
+- #### Operazione 10 - Dettagli di una missione
+- #### Operazione 11 - Dettagli di una richiesta di soccorso
+- #### Operazione 12 - Dettagli di un operatore
+- #### Operazione 13 - Lista delle missioni in cui un operatore è stato coinvolto
+- #### Operazione 14 (Operazione aggiuntiva) - Aggiunta di un operatore
+
 ---
-# Operazioni
+# Specifica operazioni
 ### Operazione 1.1 - Login con username e password
 **API URL**: _POST_ [BASE]/auth/login
 **Output**: 204 - NO CONTENT
@@ -17,7 +36,7 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 ### Operazione 2 - Inserimento di una richiesta di soccorso
 **API URL**: _POST_ [BASE]/requests
 **Input**: {request}
-**Output**: 201 - CREATED ([BASE]/requests/{id})
+**Output**: 201 - CREATED ([BASE]/requests/{idRichiestaAggiunta})
 
 ---
 ### Operazione 3 - Convalida di una richiesta di soccorso
@@ -31,7 +50,7 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 **OUTPUT**: 204 - NO CONTENT
 
 ---
-### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (attive, in corso, chiuse, ignorate)
+### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (in attesa, attive, in corso, chiuse, ignorate)
 **API URL**: _GET_ [BASE]/requests/{status}?page={numero_pagina}&size={size_pagina}
 **OUTPUT**: 200 - OK
 
@@ -132,16 +151,14 @@ Nota come **_"endTime"_** e **_"successLevel"_** siano settati a **_"null"_** in
 
 ---
 ### Operazione 8 - Chiusura di una missione in corso
-**API URL**: _PATCH_ [BASE]/requests/{id}
+**API URL**: _PATCH_ [BASE]/requests/{id}/close
 **INPUT**: 
 
     {
         "status":"chiusa",
-        "mission": {
-            "successLevel":{livello_di_successo},
-            "endTime":{timestamp_chiusura_missione},
-            "endingAdmin": {mission_ending_admin}
-        }
+        "successLevel":{livello_di_successo},
+        "endTime":{timestamp_chiusura_missione},
+        "endingAdmin": {mission_ending_admin}
     }
 
 **OUTPUT**: 204 - NO CONTENT
@@ -207,7 +224,7 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
 
 ---
 ### Operazione 13 - Lista delle missioni in cui un operatore è stato coinvolto
-**API URL**: _GET_ [BASE]/operators/{id}/missionsAccomplished
+**API URL**: _GET_ [BASE]/operators/{id}/missions
 **OUTPUT**: 200
 
     [
@@ -236,3 +253,20 @@ Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere 
     ]
 
 Nota: in questo output, endTime, successLevel e endingAdmin **potrebbero essere nulli**, in quanto l'operazione mostra in output anche le missioni non concluse
+
+---
+### Operazione 14 (Operazione aggiuntiva) - Aggiunta di un operatore
+**API URL**: _POST_ [BASE]/operators
+**INPUT**:
+
+     {
+        "id":{id_operatore},
+        "name":{nome_operatore},
+        "email":{email_operatore},
+        "username":{username_operatore},
+        "licences":[{patenti-operatore}],
+        "skills":[{abilità-operatore}],
+        "status":{stato_operatore}
+    }
+
+**OUTPUT**: 201 - CREATED ([BASE]/operators/{idOperatoreAggiunto})
