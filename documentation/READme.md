@@ -7,6 +7,7 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 ## Riepilogo operazioni
 - #### Operazione 1.1 - Login con username e password
 - #### Operazione 1.2 - Logout
+- #### Operazione 1.3 - Refresh
 - #### Operazione 2 - Inserimento di una richiesta di soccorso
 - #### Operazione 3 - Convalida di una richiesta di soccorso
 - #### Operazione 4 - Lista (paginata) delle richieste di soccorso, filtrata in base alla tipologia (attive, in corso, chiuse, ignorate)
@@ -31,6 +32,11 @@ URL di base: **http://swa.net/soccorsoweb/rest** e ci riferimo ad essa tramite *
 ### Operazione 1.2 - Logout
 **API URL**: _DELETE_ [BASE]/auth/logout<br>
 **Output**: 204 - NO CONTENT
+
+---
+### Operazione 1.3 - Refresh
+**API URL**: _GET_ [BASE]/auth/refresh<br>
+**OUTPUT**: 204 - NO CONtent
 
 ---
 ### Operazione 2 - Inserimento di una richiesta di soccorso
