@@ -1,15 +1,15 @@
 package com.univaq.swa.soccorsoweb.rest.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Mission {
     private Operator teamLeader;
     private List<Operator> team;
     private String obiettivo;
-    private LocalDate startTime;
-    private LocalDate endTime;
-    private byte livelloSuccesso;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private int livelloSuccesso;
     private Admin endingAdmin;
 
     public Operator getTeamLeader() {
@@ -40,27 +40,27 @@ public class Mission {
         this.obiettivo = obiettivo;
     }
 
-    public LocalDate getStartTime() {
+    public LocalDateTime getStartTime() {
         return this.startTime;
     }
 
-    public void setStartTime(LocalDate startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDate getEndTime() {
+    public LocalDateTime getEndTime() {
         return this.endTime;
     }
 
-    public void setEndTime(LocalDate endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
-    public byte getLivelloSuccesso() {
+    public int getLivelloSuccesso() {
         return this.livelloSuccesso;
     }
 
-    public void setLivelloSuccesso(byte livelloSuccesso) {
+    public void setLivelloSuccesso(int livelloSuccesso) {
         this.livelloSuccesso = livelloSuccesso;
     }
 

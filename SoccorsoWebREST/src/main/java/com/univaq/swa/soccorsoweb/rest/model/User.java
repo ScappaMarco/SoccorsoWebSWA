@@ -8,7 +8,7 @@ public class User {
         return this.nome;
     }
 
-    public void setNome(String nome) {
+    public void setName(String nome) {
         this.nome = nome;
     }
 
