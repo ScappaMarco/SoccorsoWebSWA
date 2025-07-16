@@ -65,4 +65,6 @@ public class Admin {
     public void setNotActive() {
         this.active = false;
     }
+
+    public void setStatus(Boolean status) { this.active = status; }
 }

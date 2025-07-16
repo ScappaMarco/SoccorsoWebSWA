@@ -78,4 +78,6 @@ public class Operator {
     public void setNotFree() {
         this.free = false;
     }
+
+    public void setStatus(Boolean status) { this.free = status; }
 }
