@@ -30,10 +30,28 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              type: string
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
       responses:
-        "204":
-          $ref: "#/components/responses/NoContent"
+        "200":
+          description: The authorization token
+          headers:
+            Authorization:
+              description: Bearer token for authorization
+              style: simple
+              schema:
+                pattern: "Bearer [a-z0-9A-Z]+"
+                type: string
+          content:
+            text/plain:
+              schema:
+                type: string
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
         "500":
           $ref: "#/components/responses/GeneralError"
   /auth/logout:
@@ -51,6 +69,32 @@ paths:
           $ref: "#/components/responses/GeneralError"
         "401":
           $ref: "#/components/responses/UnauthorizedError"
+  /auth/refresh:
+    get:
+      operationId: refresh
+      description: This operation has the effect of refreshing the authorization token
+      tags:
+        - Authentication
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: The refreshed authentication token
+          headers:
+            Authorization:
+              description: Bearer token for authentication
+              style: simple
+              schema:
+                pattern: "Bearer [a-z0-9A-Z]+"
+                type: string
+          content:
+            text/plain:
+              schema:
+                type: string
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "500":
+          $ref: "#/components/responses/GeneralError"
   /requests:
     post:
       operationId: addRequest
@@ -312,7 +356,7 @@ paths:
         "401":
           $ref: "#/components/responses/UnauthorizedError"
         "500":
-            $ref: "#/components/responses/GeneralError"
+          $ref: "#/components/responses/GeneralError"
   /operators/{operatorId}/missions:
     get:
       operationId: operatorMissions
@@ -700,28 +744,28 @@ components:
         status: "in_corso"
         mission:
           team:
-          - op1:
-              ID: 56
-              name: "sara"
-              email: "sara@ex.com"
-              username: "sara76"
-              licenses:
-                - "B"
-              skills:
-                - "skill 1"
-              status: "not_free"
-          - op2:
-              ID: 338
-              name: "mirko valenti"
-              email: "mirko.valenti@ex.com"
-              username: "mirkovalenti99"
-              licenses:
-                - "A1"
-                - "B"
-              skills:
-                - "skill 1"
-                - "skill 2"
-              status: "not_free"
+            - op1:
+                ID: 56
+                name: "sara"
+                email: "sara@ex.com"
+                username: "sara76"
+                licenses:
+                  - "B"
+                skills:
+                  - "skill 1"
+                status: "not_free"
+            - op2:
+                ID: 338
+                name: "mirko valenti"
+                email: "mirko.valenti@ex.com"
+                username: "mirkovalenti99"
+                licenses:
+                  - "A1"
+                  - "B"
+                skills:
+                  - "skill 1"
+                  - "skill 2"
+                status: "not_free"
         teamLeader:
           ID: 56
           name: "sara"
@@ -754,28 +798,28 @@ components:
           status: "in_corso"
           mission:
             team:
-            - op1:
-                ID: 56
-                name: "sara"
-                email: "sara@ex.com"
-                username: "sara76"
-                licenses:
-                  - "B"
-                skills:
-                  - "skill 1"
-                status: "not_free"
-            - op2:
-                ID: 338
-                name: "mirko valenti"
-                email: "mirko.valenti@ex.com"
-                username: "mirkovalenti99"
-                licenses:
-                  - "A1"
-                  - "B"
-                skills:
-                  - "skill 1"
-                  - "skill 2"
-                status: "not_free"
+              - op1:
+                  ID: 56
+                  name: "sara"
+                  email: "sara@ex.com"
+                  username: "sara76"
+                  licenses:
+                    - "B"
+                  skills:
+                    - "skill 1"
+                  status: "not_free"
+              - op2:
+                  ID: 338
+                  name: "mirko valenti"
+                  email: "mirko.valenti@ex.com"
+                  username: "mirkovalenti99"
+                  licenses:
+                    - "A1"
+                    - "B"
+                  skills:
+                    - "skill 1"
+                    - "skill 2"
+                  status: "not_free"
           teamLeader:
             ID: 56
             name: "sara"
@@ -805,28 +849,28 @@ components:
           status: "in_corso"
           mission:
             team:
-            - op1:
-                ID: 56
-                name: "sara"
-                email: "sara@ex.com"
-                username: "sara76"
-                licenses:
-                  - "B"
-                skills:
-                  - "skill 1"
-                status: "not_free"
-            - op2:
-                ID: 338
-                name: "mirko valenti"
-                email: "mirko.valenti@ex.com"
-                username: "mirkovalenti99"
-                licenses:
-                  - "A1"
-                  - "B"
-                skills:
-                  - "skill 1"
-                  - "skill 2"
-                status: "not_free"
+              - op1:
+                  ID: 56
+                  name: "sara"
+                  email: "sara@ex.com"
+                  username: "sara76"
+                  licenses:
+                    - "B"
+                  skills:
+                    - "skill 1"
+                  status: "not_free"
+              - op2:
+                  ID: 338
+                  name: "mirko valenti"
+                  email: "mirko.valenti@ex.com"
+                  username: "mirkovalenti99"
+                  licenses:
+                    - "A1"
+                    - "B"
+                  skills:
+                    - "skill 1"
+                    - "skill 2"
+                  status: "not_free"
           teamLeader:
             ID: 56
             name: "sara"
@@ -875,28 +919,28 @@ components:
         status: "in_corso"
         missione:
           team:
-          - op1:
-              ID: 56
-              name: "sara"
-              email: "sara@ex.com"
-              username: "sara76"
-              licenses:
-                - "B"
-              skills:
-                - "skill 1"
-              status: "not_free"
-          - op2:
-              ID: 338
-              name: "mirko valenti"
-              email: "mirko.valenti@ex.com"
-              username: "mirkovalenti99"
-              licenses:
-                - "A1"
-                - "B"
-              skills:
-                - "skill 1"
-                - "skill 2"
-              status: "not_free"
+            - op1:
+                ID: 56
+                name: "sara"
+                email: "sara@ex.com"
+                username: "sara76"
+                licenses:
+                  - "B"
+                skills:
+                  - "skill 1"
+                status: "not_free"
+            - op2:
+                ID: 338
+                name: "mirko valenti"
+                email: "mirko.valenti@ex.com"
+                username: "mirkovalenti99"
+                licenses:
+                  - "A1"
+                  - "B"
+                skills:
+                  - "skill 1"
+                  - "skill 2"
+                status: "not_free"
           teamLeader:
             ID: 56
             name: "sara"
