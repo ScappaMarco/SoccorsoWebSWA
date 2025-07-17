@@ -1,4 +1,4 @@
-package com.univaq.swa.soccorsoweb.rest.business;
+package com.univaq.swa.soccorsoweb.rest.business.service;
 
 import com.univaq.swa.soccorsoweb.rest.model.HelpRequest;
 import com.univaq.swa.soccorsoweb.rest.model.Mission;

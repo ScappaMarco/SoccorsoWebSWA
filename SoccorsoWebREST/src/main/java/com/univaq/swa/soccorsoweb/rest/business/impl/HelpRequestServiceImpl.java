@@ -1,5 +1,6 @@
-package com.univaq.swa.soccorsoweb.rest.business;
+package com.univaq.swa.soccorsoweb.rest.business.impl;
 
+import com.univaq.swa.soccorsoweb.rest.business.service.HelpRequestService;
 import com.univaq.swa.soccorsoweb.rest.model.HelpRequest;
 import com.univaq.swa.soccorsoweb.rest.model.Mission;
 import com.univaq.swa.soccorsoweb.rest.model.Position;
@@ -10,7 +11,7 @@ import javassist.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelpRequestServiceImpl implements  HelpRequestService{
+public class HelpRequestServiceImpl implements HelpRequestService {
     @Override
     public HelpRequest getHelpRequest(int helprequestId) throws NotFoundException {
         return DummyGenerator.generateDummyOngoingHelpRequest();
