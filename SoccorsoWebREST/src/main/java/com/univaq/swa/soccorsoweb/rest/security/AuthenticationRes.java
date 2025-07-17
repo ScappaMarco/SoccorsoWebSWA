@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 
-import java.awt.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +32,8 @@ public class AuthenticationRes {
                                             )
                                         }),
                         @ApiResponse(responseCode = "401", description = "Unauthorized"),
-                        @ApiResponse(responseCode = "500", description = "Username or password wrong")})
+                        @ApiResponse(responseCode = "500", description = "Username or password wrong")
+                    })
     public Response login(@Context UriInfo uriInfo,
                           @Parameter(schema = @Schema(type = "string"))
                           @FormParam("username") String username,
@@ -50,4 +50,6 @@ public class AuthenticationRes {
         }
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
+
+
 }
