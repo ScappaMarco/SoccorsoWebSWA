@@ -15,13 +15,11 @@ import com.univaq.swa.soccorsoweb.rest.security.Logged;
 import com.univaq.swa.soccorsoweb.rest.utils.DummyGenerator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -167,7 +165,7 @@ public class HelpRequestResource {
                 this.helpRequestService.setMission(helpRequest.getId(), DummyGenerator.generateDummyOngoingMission());
                 return Response.ok().build();
             } else {
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Mission alredy exiting").build();
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Mission already exiting").build();
             }
         } catch (NotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND).entity("Help request not found").build();

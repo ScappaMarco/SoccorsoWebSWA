@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.ws.rs.*;
@@ -38,15 +39,21 @@ public class HelpRequestsResource {
     @Logged
     @Operation(description = "This operations adds an help request", tags = {"HelpRequest"},
                 security = @SecurityRequirement(name = "bearerAuth"),
+                requestBody = @RequestBody(
+                        required = true,
+                        content = @Content(
+                                mediaType = MediaType.APPLICATION_JSON,
+                                schema = @Schema(implementation = HelpRequest.class)
+                        )
+                ),
                 responses = {
                     @ApiResponse(
                             responseCode = "201", description = "Help request added",
-                            content = @Content(schema = @Schema(implementation = URI.class))
+                            content = @Content(mediaType = MediaType.TEXT_PLAIN, schema = @Schema(implementation = URI.class))
                     ),
                 })
     public Response addRequest(
             @Parameter(description = "The help request to add", schema = @Schema(implementation = HelpRequest.class), required = true) HelpRequest helpRequest,
-            @Context SecurityContext securityContext, @Context ContainerRequestContext requestContext,
             @Context UriInfo uriInfo) {
 
         //prendiamo l'id della richiesta appena inserita per poi restituirlo nella Response
@@ -66,8 +73,7 @@ public class HelpRequestsResource {
                     @ApiResponse(responseCode = "200", description = "All the closed help requests",
                         content = @Content(schema = @Schema(implementation = HelpRequest.class)))
                 })
-    public Response getClosedHelpRequests(@Context SecurityContext securityContext, @Context ContainerRequestContext containerRequestContext,
-                                          @Context UriInfo uriInfo) {
+    public Response getClosedHelpRequests(@Context UriInfo uriInfo) {
         return Response.ok(mapHelpRequests(helpRequestService.getClosedHelpRequests(), uriInfo)).build();
         
     }

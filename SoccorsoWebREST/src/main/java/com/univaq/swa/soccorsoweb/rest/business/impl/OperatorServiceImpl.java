@@ -1,6 +1,7 @@
 package com.univaq.swa.soccorsoweb.rest.business.impl;
 
 import com.univaq.swa.soccorsoweb.rest.business.service.OperatorService;
+import com.univaq.swa.soccorsoweb.rest.model.HelpRequest;
 import com.univaq.swa.soccorsoweb.rest.model.Mission;
 import com.univaq.swa.soccorsoweb.rest.model.Operator;
 import com.univaq.swa.soccorsoweb.rest.utils.DummyGenerator;
@@ -26,19 +27,24 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public List<Mission> getOperatorOngoingMissions(int operatorId) throws NotFoundException {
-        List<Mission> missions = new ArrayList<>();
-        missions.add(DummyGenerator.generateDummyOngoingMission());
-        missions.add(DummyGenerator.generateDummyOngoingMission());
+    public List<HelpRequest> getOperatorOngoingMissions(int operatorId) throws NotFoundException {
+        List<HelpRequest> missions = new ArrayList<>();
+        missions.add(DummyGenerator.generateDummyOngoingHelpRequest());
+        missions.add(DummyGenerator.generateDummyOngoingHelpRequest());
         return missions;
     }
 
     @Override
-    public List<Mission> getOperatorClosedMission(int operatorId) throws NotFoundException {
-        List<Mission> missions = new ArrayList<>();
-        missions.add(DummyGenerator.generateDummyEndedMission());
-        missions.add(DummyGenerator.generateDummyEndedMission());
+    public List<HelpRequest> getOperatorClosedMission(int operatorId) throws NotFoundException {
+        List<HelpRequest> missions = new ArrayList<>();
+        missions.add(DummyGenerator.generateDummyClosedHelpRequest());
+        missions.add(DummyGenerator.generateDummyOngoingHelpRequest());
         return missions;
+    }
+
+    @Override
+    public List<Operator> getOperatorPerStatus(String status) {
+        return List.of();
     }
 
     @Override

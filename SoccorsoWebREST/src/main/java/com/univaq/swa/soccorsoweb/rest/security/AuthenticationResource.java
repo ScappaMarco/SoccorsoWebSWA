@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import static jakarta.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 @Path("auth") //[BASE]/auth/...
-public class AuthenticationRes {
+public class AuthenticationResource {
 
     /*
     RIROSRA AUTENTICAZIONE:

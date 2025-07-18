@@ -2,10 +2,10 @@ package com.univaq.swa.soccorsoweb.rest;
 
 import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 import com.univaq.swa.soccorsoweb.rest.jackson.ObjectMapperContextResolver;
-import com.univaq.swa.soccorsoweb.rest.resources.HelpRequestResource;
-import com.univaq.swa.soccorsoweb.rest.resources.OperatorResource;
+import com.univaq.swa.soccorsoweb.rest.resources.HelpRequestsResource;
+import com.univaq.swa.soccorsoweb.rest.resources.OperatorsResource;
 import com.univaq.swa.soccorsoweb.rest.security.AuthLoggedFilter;
-import com.univaq.swa.soccorsoweb.rest.security.AuthenticationRes;
+import com.univaq.swa.soccorsoweb.rest.security.AuthenticationResource;
 import com.univaq.swa.soccorsoweb.rest.security.CORSFilter;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -22,9 +22,10 @@ public class RESTapp extends Application {
         HashSet<Class<?>> c = new HashSet<>();
 
         //resoyrces
-        c.add(AuthenticationRes.class);
-        c.add(HelpRequestResource.class);
-        c.add(OperatorResource.class);
+        c.add(AuthenticationResource.class);
+        c.add(HelpRequestsResource.class);
+        c.add(OperatorsResource.class);
+
         //utils
         c.add(JacksonJsonProvider.class);
         c.add(ObjectMapperContextResolver.class);
