@@ -21,7 +21,7 @@ public class RESTapp extends Application {
     public RESTapp() {
         HashSet<Class<?>> c = new HashSet<>();
 
-        //resoyrces
+        //resources
         c.add(AuthenticationResource.class);
         c.add(HelpRequestsResource.class);
         c.add(OperatorsResource.class);
