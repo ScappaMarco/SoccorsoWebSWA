@@ -5,6 +5,7 @@ import com.univaq.swa.soccorsoweb.rest.model.HelpRequest;
 import com.univaq.swa.soccorsoweb.rest.model.Mission;
 import com.univaq.swa.soccorsoweb.rest.model.Position;
 import com.univaq.swa.soccorsoweb.rest.model.User;
+import com.univaq.swa.soccorsoweb.rest.model.enumerations.RequestStatusEnum;
 import com.univaq.swa.soccorsoweb.rest.utils.DummyGenerator;
 import javassist.NotFoundException;
 
@@ -25,6 +26,16 @@ public class HelpRequestServiceImpl implements HelpRequestService {
     @Override
     public void deleteRequest(int helprequestId) throws NotFoundException {
 
+    }
+
+    @Override
+    public void validateRequest(int helpRequestId) throws NotFoundException {
+        this.getHelpRequest(helpRequestId).setStatoRichiesta(RequestStatusEnum.ATTIVA);
+    }
+
+    @Override
+    public void closeHelpRequest(int helpRequestId) throws NotFoundException {
+        this.getHelpRequest(helpRequestId).setStatoRichiesta(RequestStatusEnum.CHIUSA);
     }
 
     @Override

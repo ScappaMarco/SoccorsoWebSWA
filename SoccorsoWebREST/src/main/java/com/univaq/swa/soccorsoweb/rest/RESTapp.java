@@ -1,23 +1,40 @@
 package com.univaq.swa.soccorsoweb.rest;
 
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
+import com.univaq.swa.soccorsoweb.rest.jackson.ObjectMapperContextResolver;
+import com.univaq.swa.soccorsoweb.rest.resources.HelpRequestResource;
+import com.univaq.swa.soccorsoweb.rest.resources.OperatorResource;
+import com.univaq.swa.soccorsoweb.rest.security.AuthLoggedFilter;
+import com.univaq.swa.soccorsoweb.rest.security.AuthenticationRes;
+import com.univaq.swa.soccorsoweb.rest.security.CORSFilter;
+import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
-import jakarta.ws.rs.core.Feature;
-import jakarta.ws.rs.core.FeatureContext;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+@ApplicationPath("rest")
 public class RESTapp extends Application {
     private final Set<Class<?>> classes;
 
     public RESTapp() {
         HashSet<Class<?>> c = new HashSet<>();
 
-        //resoyrces, filters, ecc
+        //resoyrces
+        c.add(AuthenticationRes.class);
+        c.add(HelpRequestResource.class);
+        c.add(OperatorResource.class);
+        //utils
+        c.add(JacksonJsonProvider.class);
+        c.add(ObjectMapperContextResolver.class);
+
+        //filters
+        c.add(CORSFilter.class);
+        c.add(AuthLoggedFilter.class);
 
         classes = Collections.unmodifiableSet(c);
-        }
+    }
 
     @Override
     public Set<Class<?>> getClasses() {

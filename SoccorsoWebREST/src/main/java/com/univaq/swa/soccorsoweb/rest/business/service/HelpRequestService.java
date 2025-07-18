@@ -12,6 +12,8 @@ public interface HelpRequestService {
     HelpRequest getHelpRequest(int helprequestId) throws NotFoundException;
     int addRequest(HelpRequest hr);
     void deleteRequest(int helprequestId) throws NotFoundException;
+    void validateRequest(int helpRequestId) throws NotFoundException;
+    void closeHelpRequest(int helpRequestId) throws NotFoundException;
     Mission getMissione(int helprequestId) throws NotFoundException;
     void setMission(int helprequestId, Mission mission) throws NotFoundException;
     User getSegnalante(int helprequestId) throws NotFoundException;
