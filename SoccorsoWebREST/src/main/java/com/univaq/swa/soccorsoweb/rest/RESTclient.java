@@ -9,12 +9,12 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import java.io.IOException;
 
 public class RESTclient {
-    private static final String base = "http://localhost:8080/soccorsowebswa/rest";
+    private static final String base = "http://localhost:8080/soccorsoweb/rest";
 
-    private static final String dummyHelpRequest = "{";
-    private static final String dummyOperator = "";
-    private static final String dummyCredentials = "";
-    private static final String dummyMission = "";
+    private static final String dummyHelpRequest = "{\"id\":7,\"description\":\"Richiesta di soccorso\",\"position\":{\"address\":\"Via Roma 10, L'Aquila\",\"coordinates\":\"42.3505,13.3995\"},\"reporter\":{\"name\":\"Mario Rossi\",\"email\":\"mario.rossi@example.com\"},\"status\":\"in_attesa\",\"mission\":{\"teamLeader\":{\"id\":1,\"name\":\"Luca Bianchi\",\"email\":\"luca.bianchi@example.com\",\"username\":\"lbianchi\",\"skills\":[\"first aid\",\"driving\"],\"status\":\"free\"},\"team\":[{\"id\":2,\"name\":\"Anna Verdi\",\"email\":\"anna.verdi@example.com\",\"username\":\"averdi\",\"skills\":[\"nursing\"],\"status\":\"not_free\"},{\"id\":3,\"name\":\"Paolo Neri\",\"email\":\"paolo.neri@example.com\",\"username\":\"pneri\",\"skills\":[\"rescue\"],\"status\":\"free\"}],\"objective\":\"Salvare il gattino\",\"startTime\":\"2024-07-19T14:30:00Z\",\"endTime\":\"2024-07-19T15:00:00Z\",\"successLevel\":4,\"endingAdmin\":{\"id\":10,\"name\":\"Marco Rossi\",\"email\":\"marco.rossi@example.com\",\"username\":\"mrossi\",\"skills\":[\"coordination\"],\"status\":\"free\"}}}";
+    private static final String dummyOperator = "{\"id\":6,\"firstName\":\"Luca\",\"lastName\":\"Bianchi\",\"name\":\"Luca Bianchi\",\"email\":\"luca.bianchi@example.com\",\"username\":\"lbianchi\",\"licenses\":[\"driver\",\"rescue\"],\"skills\":[\"first aid\",\"driving\"],\"status\":\"free\"}";
+    private static final String dummyCredentials = "{\"username\" : \"pippo\" , \"password\" : \"pippo\"}";
+    private static final String dummyMission = "{\"teamLeader\":{\"id\":1,\"firstName\":\"Luca\",\"lastName\":\"Bianchi\",\"name\":\"Luca Bianchi\",\"email\":\"luca.bianchi@example.com\",\"username\":\"lbianchi\",\"licenses\":[\"driver\"],\"skills\":[\"first aid\",\"driving\"],\"status\":\"free\"},\"team\":[{\"id\":2,\"firstName\":\"Anna\",\"lastName\":\"Verdi\",\"name\":\"Anna Verdi\",\"email\":\"anna.verdi@example.com\",\"username\":\"averdi\",\"licenses\":[\"nurse\"],\"skills\":[\"nursing\"],\"status\":\"not_free\"},{\"id\":3,\"firstName\":\"Paolo\",\"lastName\":\"Neri\",\"name\":\"Paolo Neri\",\"email\":\"paolo.neri@example.com\",\"username\":\"pneri\",\"licenses\":[\"rescue\"],\"skills\":[\"rescue\"],\"status\":\"free\"}],\"objective\":\"Salvare il gattino\",\"startTime\":\"2024-07-19T14:30:00Z\",\"endTime\":\"2024-07-19T15:00:00Z\",\"successLevel\":4,\"endingAdmin\":{\"id\":10,\"name\":\"Marco Rossi\",\"email\":\"marco.rossi@example.com\",\"username\":\"mrossi\",\"skills\":[\"coordination\"],\"status\":\"free\"}}";
 
     CloseableHttpClient client = HttpClients.createDefault();
 
@@ -102,8 +102,17 @@ public class RESTclient {
     }
 
     public void doTests() throws IOException {
+        HttpPost postRequest = new HttpPost(base + "/auth/login");
+        postRequest.setEntity(new StringEntity(dummyCredentials, ContentType.APPLICATION_JSON));
+        executeAndDump("Login: ", postRequest);
+
+        Header h = client.execute(postRequest, response -> {
+            return response.getFirstHeader("Authorization");
+        });
+
         HttpGet getRequest = new HttpGet(base + "/requests/closed");
         getRequest.setHeader("Accept", "application/json");
+        getRequest.setHeader("Authorization", h.getValue());
         executeAndDump("Lista richieste chiuse: ", getRequest);
 
         getRequest = new HttpGet(base + "/requests/7");
@@ -125,14 +134,6 @@ public class RESTclient {
         getRequest = new HttpGet(base + "/operators/6/missions");
         getRequest.setHeader("Accept", "application/json");
         executeAndDump("Missioni operatore id = 6: ", getRequest);
-
-        HttpPost postRequest = new HttpPost(base + "/auth/login");
-        postRequest.setEntity(new StringEntity(dummyCredentials, ContentType.APPLICATION_JSON));
-        executeAndDump("Login: ", postRequest);
-
-        Header h = client.execute(postRequest, response -> {
-            return response.getFirstHeader("Authorization");
-        });
 
         postRequest = new HttpPost(base + "/requests");
         postRequest.setEntity(new StringEntity(dummyHelpRequest, ContentType.APPLICATION_JSON));
@@ -172,7 +173,7 @@ public class RESTclient {
         executeAndDump("Logout", deleteRequest);
     }
 
-    public static void Main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException{
         RESTclient resTclient = new RESTclient();
         resTclient.doTests();
     }

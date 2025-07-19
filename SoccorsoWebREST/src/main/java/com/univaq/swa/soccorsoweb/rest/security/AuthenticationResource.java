@@ -54,6 +54,7 @@ public class AuthenticationResource {
         try {
             if(AuthHelpers.getInstance().authenticateUser(username, password)) {
                 String authToken = AuthHelpers.getInstance().issueToken(uriInfo, username);
+                System.out.println("SONO QUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 
                 return Response.ok().header(AUTHORIZATION, "Bearer " + authToken).build();
             }
